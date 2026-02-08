@@ -31,7 +31,7 @@ const FINISHES: { type: FinishType; label: string; points: number }[] = [
 ]
 
 const emptyBey = () => ({
-  line: 'UXBX' as const,
+  line: 'UXBX' as const as 'UXBX' | 'CX',
   blade: '',
   lockChip: '',
   mainBlade: '',
@@ -745,18 +745,6 @@ export default function TournamentStart() {
   const leftIsWinner = winnerSide() === 'A'
   const rightIsWinner = winnerSide() === 'B'
 
-  const handleDraw = () => {
-    if (event.battleType !== 'team') return
-    setScoreA(0)
-    setScoreB(0)
-    setCountdown(null)
-    const battleIndex = log.length + 1
-    setLog((prev) => [
-      { side: 'A', label: '引き分け', points: 0, battleIndex },
-      ...prev,
-    ])
-  }
-
   const allowedPartsForEntry = (entry: EventEntry) => {
     if (!entry.useTeamParts) return null
     const ids = parseJsonArray<string>(entry.userIdsJson, [])
@@ -831,7 +819,7 @@ export default function TournamentStart() {
       )
       next[index] = {
         ...next[index],
-        line: 'CX',
+        line: 'CX' as 'UXBX' | 'CX',
         lockChip: lock?.code ?? '',
         mainBlade: main?.code ?? '',
         assistBlade: assist?.code ?? '',
@@ -945,7 +933,7 @@ export default function TournamentStart() {
   const modalRoundLabel =
     event.battleType === 'streak' ? '連勝バトル' : roundTitleForKey(currentMatchKey)
   const needsTriple = event.battleType === 'three-on-three' || event.battleType === 'team'
-  const rowLabels = (entry?: EventEntry) => {
+  const rowLabels = (_entry?: EventEntry) => {
     if (event.battleType === 'team') {
       return ['1人目', '2人目', '3人目']
     }

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import {
   bladesByName,
@@ -18,7 +18,7 @@ const FINISHES: { type: FinishType; label: string; points: number }[] = [
 ]
 
 const emptyBey = () => ({
-  line: 'UXBX' as const,
+  line: 'UXBX' as const as 'UXBX' | 'CX',
   blade: '',
   lockChip: '',
   mainBlade: '',

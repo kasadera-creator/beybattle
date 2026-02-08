@@ -25,6 +25,7 @@ export default function TournamentResult() {
     over: 0,
     burst: 0,
     ko: 0,
+    ringout: 0,
   })
   const [loading, setLoading] = useState(true)
 
@@ -50,7 +51,7 @@ export default function TournamentResult() {
           acc[item.finishType] = (acc[item.finishType] ?? 0) + 1
           return acc
         },
-        { spin: 0, over: 0, burst: 0, ko: 0 },
+        { spin: 0, over: 0, burst: 0, ko: 0, ringout: 0 },
       )
       setEvent(data ?? null)
       setUsers(users)
